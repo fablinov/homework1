@@ -1,6 +1,8 @@
 from datetime import datetime
-from typing import Any
-from masks import get_mask_card_number, get_mask_account
+
+from isort.identify import imports
+
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(type_and_number: str) -> str:
@@ -23,8 +25,6 @@ def mask_account_card(type_and_number: str) -> str:
 print(mask_account_card("MasterCard 7158300734726758"))
 
 
-
-
 def get_data(user_date: str) -> str:
     """Функция преобразующая дату формат даты."""
 
@@ -32,8 +32,5 @@ def get_data(user_date: str) -> str:
     new_date = date_format.strftime("%d.%m.%Y")
     return new_date
 
+
 print(get_data("2024-03-11T02:26:18.671407"))
-
-
-
-
