@@ -1,16 +1,20 @@
-from typing import Any, Iterable
+from typing import Iterable
+from typing import Any
 
 
-def filter_by_state(dictionaries: Iterable[dict[str, Any]], state: Any = "EXECUTED") -> list[dict[str, Any]]:
-    """Функция выведения данных по определенному значению"""
-    executed_of_list = []
-    for i in dictionaries:
-        if i["state"] == state:
-            executed_of_list.append(i)
-    return executed_of_list
+def filter_by_state(filter_state: Iterable, state="EXECUTED") -> Any and Iterable:
+    """Функция принимает список словарей и возвращает новый список словарей содержащий только
+    те словари, у которых ключ state соответствует указанному значению"""
+    new_filter_state = []
+
+    for dictionary_state in filter_state:
+        if dictionary_state["state"] == state:
+            new_filter_state.append(dictionary_state)
+
+    return new_filter_state
 
 
-def sort_by_date(dictionaries: Iterable[dict[str, Any]], reverse: bool = True) -> list[dict[str, Any]]:
-    """Функция для сортировки по датам"""
-    list_sorted_date = sorted(dictionaries, key=lambda x: x["date"], reverse = reverse)
-    return list_sorted_date
+def sort_by_date(sort_state: list[dict[str, Any]], reverse=False) -> list[dict[str, Any]]:
+    """Функция возвращает новый список отсортированный по дате"""
+    sorted_state_date = sorted(sort_state, key=lambda sort_state: sort_state["date"], reverse=reverse)
+    return sorted_state_date
