@@ -81,9 +81,9 @@ transactions = (
 )
 
 
-def filter_by_currency(transactions: list[dict], cod_curr: str) -> Generator[dict, None, None]:
+def filter_by_currency(transaction: list[dict], cod_curr: str) -> Generator[dict, None, None]:
     """Генератор - принимает список словарей и возвращает операции, в которых указана заданная валюта."""
-    for key in transactions:
+    for key in transaction:
         if key["operationAmount"]["currency"]["code"] == cod_curr:
             yield key
 
@@ -93,9 +93,9 @@ for transac in range(3):
     print(next(usd_transaction))
 
 
-def transaction_descriptions(transactions: list[dict]) -> Generator[Any, Any, None]:
+def transaction_descriptions(transaction: list[dict]) -> Generator[Any, Any, None]:
     """Генератор принимает список словарей и возвращает описание каждой операции"""
-    for i in transactions:
+    for i in transaction:
         yield i["description"]
 
 

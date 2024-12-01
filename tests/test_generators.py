@@ -1,5 +1,7 @@
 from typing import Any
 
+import pytest
+
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions, transactions
 
 
@@ -43,10 +45,25 @@ def test_transaction_descriptions(test_transactions: list[dict]) -> Any:
     assert next(generator) == "Перевод организации"
 
 
-def test_card_number_generator(start: int = 1, end: int = 5) -> Any:
-    generator = card_number_generator(start, end)
-    assert next(generator) == "0000 0000 0000 0001"
-    assert next(generator) == "0000 0000 0000 0002"
-    assert next(generator) == "0000 0000 0000 0003"
-    assert next(generator) == "0000 0000 0000 0004"
-    assert next(generator) == "0000 0000 0000 0005"
+@pytest.mark.parametrize(
+    "start, stop, expected_numbers",
+    [
+        (
+            1,
+            5,
+            [
+                "0000 0000 0000 0001",
+                "0000 0000 0000 0002",
+                "0000 0000 0000 0003",
+                "0000 0000 0000 0004",
+                "0000 0000 0000 0005",
+            ],
+        )
+    ],
+)
+def test_card_number_generator(start: int, stop: int, expected_numbers: list[str]) -> None:
+    result = []
+    for el in card_number_generator(start, stop):
+        result.append(el)
+    print(result)
+    assert result == expected_numbers
