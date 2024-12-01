@@ -1,36 +1,28 @@
-from datetime import datetime
-
-from isort.identify import imports
-
 from src.masks import get_mask_account, get_mask_card_number
 
 
-def mask_account_card(type_and_number: str) -> str:
-    """ Функция, которая маскирует номер счета или карты"""
-    text_result = ""
-    digit_result = ""
-    digit_count = 0
-    for el in type_and_number:
-        if el.isalpha():
-            text_result += el
-        elif el.isdigit():
-            digit_result += el
-            digit_count += 1
-    if digit_count > 16:
-        return f"{text_result} {get_mask_account(digit_result)}"
+def mask_account_card(account_card: str) -> str:
+    """Функция принимает на вход номер карты или счета и возращает их маску"""
+    bank_account = "Счет"
+    index_account_card = account_card.find(bank_account)
+    list_account_card = account_card.split(" ")
+    if index_account_card == -1:
+        list_account_card[-1] = get_mask_card_number(list_account_card[-1])
+        mask_card_account = " ".join(list_account_card)
+        return mask_card_account
     else:
-        return f"{text_result} {get_mask_card_number(digit_result)}"
+        list_account_card[-1] = get_mask_account(list_account_card[-1])
+        mask_score_account = " ".join(list_account_card)
+        return mask_score_account
 
 
-print(mask_account_card("MasterCard 7158300734726758"))
+def get_date(date: str) -> str:
+    """Функция которая принимает на вход строку с датой в формате
+    2024-03-11T02:26:18.671407 и возвращает строку с датой в формате ДД.ММ.ГГГГ"""
+    if date == '':
+        return ''
+    else:
+        return f"{date[8:10]}.{date[5:7]}.{date[0:4]}"
 
 
-def get_data(user_date: str) -> str:
-    """Функция преобразующая дату формат даты."""
-
-    date_format = datetime.strptime(user_date, "%Y-%m-%dT%H:%M:%S.%f")
-    new_date = date_format.strftime("%d.%m.%Y")
-    return new_date
-
-
-print(get_data("2024-03-11T02:26:18.671407"))
+print(get_date(""))
