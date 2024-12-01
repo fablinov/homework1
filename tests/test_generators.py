@@ -1,7 +1,9 @@
+from typing import Any
+
 from src.generators import card_number_generator, filter_by_currency, transaction_descriptions, transactions
 
 
-def test_filter_by_currency(test_transactions, cod_curr="USD"):
+def test_filter_by_currency(test_transactions: list[dict], cod_curr: str = "USD") -> Any:
     generator = filter_by_currency(transactions, cod_curr)
     assert next(generator) == {
         "id": 939719570,
@@ -32,7 +34,7 @@ def test_filter_by_currency(test_transactions, cod_curr="USD"):
     }
 
 
-def test_transaction_descriptions(test_transactions):
+def test_transaction_descriptions(test_transactions: list[dict]) -> Any:
     generator = transaction_descriptions(transactions)
     assert next(generator) == "Перевод организации"
     assert next(generator) == "Перевод со счета на счет"
@@ -41,7 +43,7 @@ def test_transaction_descriptions(test_transactions):
     assert next(generator) == "Перевод организации"
 
 
-def test_card_number_generator(start=1, end=5):
+def test_card_number_generator(start: int = 1, end: int = 5) -> Any:
     generator = card_number_generator(start, end)
     assert next(generator) == "0000 0000 0000 0001"
     assert next(generator) == "0000 0000 0000 0002"

@@ -1,4 +1,4 @@
-from typing import Generator
+from typing import Any, Generator
 
 transactions = (
     [
@@ -93,7 +93,7 @@ for transac in range(3):
     print(next(usd_transaction))
 
 
-def transaction_descriptions(transactions):
+def transaction_descriptions(transactions: list[dict]) -> Generator[Any, Any, None]:
     """Генератор принимает список словарей и возвращает описание каждой операции"""
     for i in transactions:
         yield i["description"]
@@ -104,7 +104,7 @@ for transac in range(5):
     print(next(descriptions))
 
 
-def card_number_generator(start: int, end: int):
+def card_number_generator(start: int, end: int) -> Generator[str, Any, None]:
     """Генерирует номера карт в формате XXXX XXXX XXXX XXXX."""
     for number in range(start, end + 1):
         yield ' '.join("{:016}".format(number)[i:i + 4] for i in range(0, 16, 4))
